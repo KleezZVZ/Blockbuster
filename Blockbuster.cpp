@@ -7,6 +7,7 @@ using namespace std;
 struct Peliculas{
     string nombre, genero, director, fecha_de_salida, id, duracion;
 };
+int flag=0;
 int main(){
     Peliculas pelicula[2000];
     ifstream in_file ("movies.csv", ifstream::in);
@@ -33,14 +34,11 @@ int main(){
         nline++;
     }
     in_file.close();
-    for(int i=0; i<1000; i++){
-        cout<<pelicula[i].id<<endl;
-        cout<<pelicula[i].nombre<<endl;
-        cout<<pelicula[i].genero<<endl;
-        cout<<pelicula[i].duracion<<endl;
-        cout<<pelicula[i].director<<endl;
-        cout<<pelicula[i].fecha_de_salida<<endl;
-    }
+    do{
+        cout<<"Bienvenido al programa de rentas de peliculas online de Blockbuster. A continuacion se le dara sus opciones:\n1)Buscador de peliculas.\n2)Consulta de peliculas.\n3)Rentar una pelicula.\n4)Agregar peliculas.\n5)Inicio de sesion.\n6)Salir del programa.\nElija su opcion: "; cin>>flag;
+        system("cls");
+    }while(flag!=6);
+    cout<<"Muchas gracias por su confianza, vuelva pronto!"<<endl;
     system("pause");
     return 0;
 }
