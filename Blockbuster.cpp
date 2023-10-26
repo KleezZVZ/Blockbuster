@@ -13,6 +13,8 @@ int main(){
     int count=0, nline=0;
     Peliculas pelicula[2000];
     ifstream in_file ("movies.csv", ifstream::in);
+    ofstream out_file ("movies.csv", ofstream::out | ios_base::app);
+    fstream file_bin ("clientes.bin", fstream::in | fstream::out | fstream::binary | ios_base::app);
     if(!in_file.is_open()){
         cout<<"Archivo no encontrado";
         return 0;
@@ -27,6 +29,9 @@ int main(){
                 case 3: pelicula[nline].duracion=word; break;
                 case 4: pelicula[nline].director=word; break;
                 case 5: pelicula[nline].fecha_de_salida=word; break;
+                case 6: pelicula[nline].rent_to=word; break;
+                case 7: pelicula[nline].rent_on=word; break;
+                case 8: pelicula[nline].estado=word; break;
             }
             count++;
         }
@@ -60,7 +65,26 @@ int main(){
             system("pause");
             system("cls");
             break;
-            case 2: 
+            case 3:
+            do{
+                cout<<"Bienvenido a la seccion de rentas de Blockbuster, a continuacion se les dara las siguientes opciones:\n1)Rentar una pelicula.\n2)Consultar el estado de una pelicula.\n3)Volver al menu principal.\nElija una opcion: "; cin>>flag;
+                system("cls");
+                switch(flag){
+                    case 2:
+                    cout<<"Ingrese la id de la pelicula a verificar su disponibilidad: "; cin>>consulta_peliculas;
+                    system("cls");
+                    if(pelicula[consulta_peliculas].estado.length()!=0){
+                        cout<<"La pelicula ya se encuentra rentada, lo sentimos"<<endl;
+                        system("pause");
+                        system("cls");
+                    }else{
+                        cout<<"La pelicula se encuentra disponible, vaya a la opcion de rentarla"<<endl;
+                        system("pause");
+                        system("cls");
+                    }
+                }
+            }while(flag!=3);
+            break;
         }
     }while(flag!=6);
     system("cls");
