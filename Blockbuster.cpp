@@ -5,33 +5,39 @@
 #include <fstream>
 using namespace std;
 struct Peliculas{
-    string nombre, genero, director, fecha_de_salida, rent_to, rent_on, estado, id, duracion;
+    int id, duracion;
+    string nombre, genero, director, fecha_de_salida, rent_to, rent_on, estado, rent_back;
 };
-int flag=0, consulta_peliculas, id[1000], search_id[1000];
+struct Clientes{
+    string nombre;
+    int ci;
+};
+int flag=0, consulta_peliculas, search_id[1000], numero_de_clientes=0;
 int main(){
     string line, word;
     int count=0, nline=0;
     Peliculas pelicula[2000];
+    Clientes cliente[100];
     ifstream in_file ("movies.csv", ifstream::in);
-    ofstream out_file ("movies.csv", ofstream::out | ios_base::app);
-    fstream file_bin ("clientes.bin", fstream::in | fstream::out | fstream::binary | ios_base::app);
     if(!in_file.is_open()){
-        cout<<"Archivo no encontrado";
+        cout<<"Archivo no encontrado"<<endl;
+        system("pause");
         return 0;
     }
     while(getline(in_file, line)){
         stringstream str(line);
         while(getline(str, word, ',')){
             switch(count){
-                case 0: pelicula[nline].id=word; break;
+                case 0: pelicula[nline].id=stoi(word); break;
                 case 1: pelicula[nline].nombre=word; break;
                 case 2: pelicula[nline].genero=word; break;
-                case 3: pelicula[nline].duracion=word; break;
+                case 3: pelicula[nline].duracion=stoi(word); break;
                 case 4: pelicula[nline].director=word; break;
                 case 5: pelicula[nline].fecha_de_salida=word; break;
                 case 6: pelicula[nline].rent_to=word; break;
                 case 7: pelicula[nline].rent_on=word; break;
                 case 8: pelicula[nline].estado=word; break;
+                case 9: pelicula[nline].rent_back=word; break;
             }
             count++;
         }
@@ -39,9 +45,6 @@ int main(){
         nline++;
     }
     in_file.close();
-    for(int i=0; i<1000; i++){
-        id[i]=stoi(pelicula[i].id);
-    }
     do{
         cout<<"Bienvenido al programa de rentas de peliculas online de Blockbuster. A continuacion se le dara sus opciones:\n1)Consulta de peliculas.\n2)Buscador de peliculas.\n3)Rentar una pelicula.\n4)Agregar peliculas.\n5)Registrar cliente.\n6)Salir del programa.\nElija su opcion: "; cin>>flag;
         system("cls");
@@ -73,7 +76,7 @@ int main(){
                     case 2:
                     cout<<"Ingrese la id de la pelicula a verificar su disponibilidad: "; cin>>consulta_peliculas;
                     system("cls");
-                    if(pelicula[consulta_peliculas].estado.length()!=0){
+                    if(pelicula[consulta_peliculas].rent_to.length()!=0){
                         cout<<"La pelicula ya se encuentra rentada, lo sentimos"<<endl;
                         system("pause");
                         system("cls");
@@ -82,6 +85,28 @@ int main(){
                         system("pause");
                         system("cls");
                     }
+                }
+            }while(flag!=3);
+            break;
+            case 5:
+            do{
+                cout<<"Bienvenido a la seccion de registro de clientes, a continuacion se le dara sus opciones:\n1)Registrarse.\n2)Busqueda de cliente.\n3)Volver al menu principal.\nElija su opcion: "; cin>>flag;
+                system("cls");
+                switch(flag){
+                    case 1:
+                    cout<<"Bienvenido a la seccion de registro, los requisitos para poder registrarse son los siguientes: Su nombre y apellido, y su cedula de identidad.\nPor favor, ingrese su cedula: "; cin>>cliente[numero_de_clientes].ci;
+                    rewind(stdin);
+                    system("cls");
+                    cout<<"Ingrese su nombre y apellido: "; getline(cin, cliente[numero_de_clientes].nombre);
+                    rewind(stdin);
+                    system("cls");
+                    fstream write_bin ("clientes.bin", ios_base::app | fstream::binary);
+                    write_bin<<cliente[numero_de_clientes].ci<<" | "<<cliente[numero_de_clientes].nombre<<endl;
+                    write_bin.close();
+                    cout<<"Su registro ha sido completado con exito!, ya puede rentar peliculas de nuestra franquicia."<<endl;
+                    system("pause");
+                    system("cls");
+                    break;
                 }
             }while(flag!=3);
             break;
