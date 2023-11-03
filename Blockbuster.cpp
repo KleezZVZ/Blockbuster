@@ -45,6 +45,25 @@ int main(){
         nline++;
     }
     in_file.close();
+    fstream file_bin ("clientes.bin", fstream::in | fstream::binary);
+    if(!file_bin.is_open()){
+        cout<<"Archivo no encontrado"<<endl;
+        system("pause");
+        return 0;
+    }
+    while(getline(file_bin, line)){
+        stringstream str(line);
+        while(getline(str, word, '|')){
+            switch(count){
+                case 0: cliente[numero_de_clientes].ci=stoi(word);
+                case 1: cliente[numero_de_clientes].nombre=word;
+            }
+            count++;
+        }
+        count=0;
+        numero_de_clientes++;
+    }
+    file_bin.close();
     do{
         cout<<"Bienvenido al programa de rentas de peliculas online de Blockbuster. A continuacion se le dara sus opciones:\n1)Consulta de peliculas.\n2)Buscador de peliculas.\n3)Rentar una pelicula.\n4)Agregar peliculas.\n5)Registrar cliente.\n6)Salir del programa.\nElija su opcion: "; cin>>flag;
         system("cls");
@@ -104,6 +123,7 @@ int main(){
                     write_bin<<cliente[numero_de_clientes].ci<<" | "<<cliente[numero_de_clientes].nombre<<endl;
                     write_bin.close();
                     cout<<"Su registro ha sido completado con exito!, ya puede rentar peliculas de nuestra franquicia."<<endl;
+                    numero_de_clientes++;
                     system("pause");
                     system("cls");
                     break;
