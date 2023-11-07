@@ -76,6 +76,18 @@ int main(){
             for(int i=0; i<consulta_peliculas; i++){
                 rewind(stdin);
                 cout<<i+1<<"-Ingrese la id de la pelicula: "; cin>>search_id[i];
+            }if(pelicula[0].id>pelicula[1].id){
+                for(int i=0; i<nline; i++){
+                    int minimo=i;
+                    for(int j=i+1; j<nline; j++){
+                        if(pelicula[j].id<pelicula[j].id){
+                            minimo=j;
+                        }
+                    }
+                    int aux= pelicula[i].id;
+                    pelicula[i].id=pelicula[minimo].id;
+                    pelicula[minimo].id=aux;
+                }
             }
             system("pause");
             system("cls");
@@ -116,6 +128,19 @@ int main(){
                             system("pause");
                             system("cls");
                         }else{
+                            if(pelicula[0].id>pelicula[1].id){
+                                for(int i=0; i<nline; i++){
+                                    int minimo=i;
+                                    for(int j=i+1; j<nline; j++){
+                                        if(pelicula[j].id<pelicula[j].id){
+                                            minimo=j;
+                                        }
+                                    }
+                                    int aux= pelicula[i].id;
+                                    pelicula[i].id=pelicula[minimo].id;
+                                    pelicula[minimo].id=aux;
+                                }
+                            }
                             cout<<"Bienvenido/a "<<cliente[search_ci].nombre<<", por favor, ingrese la id de la pelicula a rentar: "; cin>>search_id[0];
                             system("cls");
                             time_t ahora= time(0);
@@ -138,6 +163,19 @@ int main(){
                     case 2:
                     cout<<"Ingrese la id de la pelicula a verificar su disponibilidad: "; cin>>consulta_peliculas;
                     system("cls");
+                    if(pelicula[0].id>pelicula[1].id){
+                        for(int i=0; i<nline; i++){
+                            int minimo=i;
+                            for(int j=i+1; j<nline; j++){
+                                if(pelicula[j].id<pelicula[j].id){
+                                    minimo=j;
+                                }
+                            }
+                            int aux= pelicula[i].id;
+                            pelicula[i].id=pelicula[minimo].id;
+                            pelicula[minimo].id=aux;
+                        }
+                    }
                     if(pelicula[consulta_peliculas-1].estado=="Rentado"){
                         cout<<"La pelicula "<<pelicula[consulta_peliculas-1].nombre<<" ya se encuentra rentada por "<<pelicula[consulta_peliculas-1].rent_to<<", lo sentimos"<<endl;
                         system("pause");
@@ -155,21 +193,61 @@ int main(){
                 cout<<"Bienvenido a la seccion de registro de clientes, a continuacion se le dara sus opciones:\n1)Registrarse.\n2)Busqueda de cliente.\n3)Volver al menu principal.\nElija su opcion: "; cin>>flag;
                 system("cls");
                 switch(flag){
-                    case 1:
-                    cout<<"Bienvenido a la seccion de registro, los requisitos para poder registrarse son los siguientes: Su nombre y apellido, y su cedula de identidad.\nPor favor, ingrese su cedula: "; cin>>cliente[numero_de_clientes].ci;
-                    rewind(stdin);
-                    system("cls");
-                    cout<<"Ingrese su nombre y apellido: "; getline(cin, cliente[numero_de_clientes].nombre);
-                    rewind(stdin);
-                    system("cls");
-                    fstream write_bin ("clientes.bin", ios_base::app | fstream::binary);
-                    write_bin<<cliente[numero_de_clientes].ci<<"|"<<cliente[numero_de_clientes].nombre<<endl;
-                    write_bin.close();
-                    cout<<"Su registro ha sido completado con exito!, ya puede rentar peliculas de nuestra franquicia."<<endl;
-                    numero_de_clientes++;
-                    system("pause");
-                    system("cls");
-                    break;
+                    case 1:{
+                        cout<<"Bienvenido a la seccion de registro, los requisitos para poder registrarse son los siguientes: Su nombre y apellido, y su cedula de identidad.\nPor favor, ingrese su cedula: "; cin>>cliente[numero_de_clientes].ci;
+                        rewind(stdin);
+                        system("cls");
+                        cout<<"Ingrese su nombre y apellido: "; getline(cin, cliente[numero_de_clientes].nombre);
+                        rewind(stdin);
+                        system("cls");
+                        fstream write_bin ("clientes.bin", ios_base::app | fstream::binary);
+                        write_bin<<cliente[numero_de_clientes].ci<<"|"<<cliente[numero_de_clientes].nombre<<endl;
+                        write_bin.close();
+                        cout<<"Su registro ha sido completado con exito!, ya puede rentar peliculas de nuestra franquicia."<<endl;
+                        numero_de_clientes++;
+                        system("pause");
+                        system("cls");
+                        }break;
+                    case 2:
+                        cout<<"Bienvenido a la seccion de busqueda de cliente. Aqui podra verificar si su registro fue exitoso y usted esta registrado en nuestro sistema.\nSeleccione que campo va a buscar, cedula [1] o nombre y apellido [2]:  "; cin>>search_ci;
+                        system("cls");
+                        if(search_ci==1){
+                            cout<<"Ingrese su cedula: "; cin>>search_ci;
+                            system("cls");
+                            for(int i=0; i<numero_de_clientes; i++){
+                                if(search_ci==cliente[i].ci){
+                                    cout<<"Usuario perteneciente al numero de cedula ingresado: "<<cliente[i].nombre<<". Usted ha sido encontrado con exito!"<<endl;
+                                    system("pause");
+                                    system("cls");
+                                    break;
+                                }else if(search_ci!=cliente[i].ci && i==numero_de_clientes-1){
+                                    cout<<"No se ha encontrado al usuario perteneciente a ese numero de cedula. Compruebe que lo haya ingresado bien, o registrese para poder disfrutar de nuestras peliculas!"<<endl;
+                                    system("pause");
+                                    system("cls");
+                                }
+                            }
+                        }else if(search_ci==2){
+                            rewind(stdin);
+                            cout<<"Ingrese su nombre y apellido: "; getline(cin, search_cliente);
+                            system("cls");
+                            for(int i=0; i<numero_de_clientes; i++){
+                                if(search_cliente==cliente[i].nombre){
+                                    cout<<"La cedula perteneciente al usuario ingresado es: "<<cliente[i].ci<<". Usted ha sido encontrado con exito!"<<endl;
+                                    system("pause");
+                                    system("cls");
+                                    break;
+                                }else if(search_ci!=cliente[i].ci && i==numero_de_clientes-1){
+                                    cout<<"No se ha encontrado la cedula perteneciente al usuario ingresado. Compruebe que lo haya ingresado bien, o registrese para poder disfrutar de nuestras peliculas!"<<endl;
+                                    system("pause");
+                                    system("cls");
+                                }
+                            }
+                        }else{
+                            cout<<"Ingrese una opcion valida"<<endl;
+                            system("pause");
+                            system("cls");
+                        }
+                        break;
                 }
             }while(flag!=3);
             break;
