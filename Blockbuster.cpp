@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string>
 #include <fstream>
+#include <ctime>
 using namespace std;
 struct Peliculas{
     int id, duracion;
@@ -12,7 +13,8 @@ struct Clientes{
     string nombre;
     int ci;
 };
-int flag=0, consulta_peliculas, search_id[1000], numero_de_clientes=0;
+int flag=0, consulta_peliculas, search_id[1000], numero_de_clientes=0, search_ci, search_cliente_2=1000;
+string search_cliente;
 int main(){
     string line, word;
     int count=0, nline=0;
@@ -92,15 +94,56 @@ int main(){
                 cout<<"Bienvenido a la seccion de rentas de Blockbuster, a continuacion se les dara las siguientes opciones:\n1)Rentar una pelicula.\n2)Consultar el estado de una pelicula.\n3)Volver al menu principal.\nElija una opcion: "; cin>>flag;
                 system("cls");
                 switch(flag){
+                    case 1:
+                        cout<<"Bienvenido al sistema de rentas de Blockbuster. Previo a rentar una pelicula, necesita iniciar sesion.\nIngrese su numero de cedula: "; cin>>search_ci;
+                        rewind(stdin);
+                        system("cls");
+                        cout<<"Ingrese su nombre y apellido: "; getline(cin, search_cliente);
+                        rewind(stdin);
+                        system("cls");
+                        for(int i=0; i<numero_de_clientes; i++){
+                            if(search_ci==cliente[i].ci){
+                                search_ci=i;
+                                break;
+                            }
+                        }for(int i=0; i<numero_de_clientes; i++){
+                            if(search_cliente==cliente[i].nombre){
+                                search_cliente_2=i;
+                                break;
+                            }
+                        }if(search_ci!=search_cliente_2){
+                            cout<<"Los datos ingresados no coinciden. Por favor, ingrese bien sus datos, o en caso contrario, registrese en nuestro sistema."<<endl;
+                            system("pause");
+                            system("cls");
+                        }else{
+                            cout<<"Bienvenido/a "<<cliente[search_ci].nombre<<", por favor, ingrese la id de la pelicula a rentar: "; cin>>search_id[0];
+                            system("cls");
+                            time_t ahora= time(0);
+                            tm* fecha= localtime(&ahora);
+                            char fecha_actual[11];
+                            strftime(fecha_actual, sizeof(fecha_actual), "%F", fecha);
+                            pelicula[search_id[0]-1].rent_on=fecha_actual;
+                            ahora+=14*24*60*60;
+                            fecha= localtime(&ahora);
+                            char fecha_a_devolver[11];
+                            strftime(fecha_a_devolver, sizeof(fecha_a_devolver), "%F", fecha);
+                            pelicula[search_id[0]-1].rent_back=fecha_a_devolver;
+                            pelicula[search_id[0]-1].estado="Rentado";
+                            cout<<"La pelicula que usted eligio es: "<<pelicula[search_id[0]-1].nombre<<".\nUsted tiene 14 dias para devolver la pelicula, hasta la fecha: "<<pelicula[search_id[0]-1].rent_back<<", que disfrute!"<<endl;
+                            pelicula[search_id[0]-1].rent_to=cliente[search_ci].nombre;
+                            system("pause");
+                            system("cls");
+                        }
+                    break;
                     case 2:
                     cout<<"Ingrese la id de la pelicula a verificar su disponibilidad: "; cin>>consulta_peliculas;
                     system("cls");
-                    if(pelicula[consulta_peliculas].rent_to.length()!=0){
-                        cout<<"La pelicula ya se encuentra rentada, lo sentimos"<<endl;
+                    if(pelicula[consulta_peliculas-1].estado=="Rentado"){
+                        cout<<"La pelicula "<<pelicula[consulta_peliculas-1].nombre<<" ya se encuentra rentada por "<<pelicula[consulta_peliculas-1].rent_to<<", lo sentimos"<<endl;
                         system("pause");
                         system("cls");
                     }else{
-                        cout<<"La pelicula se encuentra disponible, vaya a la opcion de rentarla"<<endl;
+                        cout<<"La pelicula "<<pelicula[consulta_peliculas-1].nombre<<" se encuentra disponible, vaya a la opcion de rentarla"<<endl;
                         system("pause");
                         system("cls");
                     }
@@ -120,7 +163,7 @@ int main(){
                     rewind(stdin);
                     system("cls");
                     fstream write_bin ("clientes.bin", ios_base::app | fstream::binary);
-                    write_bin<<cliente[numero_de_clientes].ci<<" | "<<cliente[numero_de_clientes].nombre<<endl;
+                    write_bin<<cliente[numero_de_clientes].ci<<"|"<<cliente[numero_de_clientes].nombre<<endl;
                     write_bin.close();
                     cout<<"Su registro ha sido completado con exito!, ya puede rentar peliculas de nuestra franquicia."<<endl;
                     numero_de_clientes++;
