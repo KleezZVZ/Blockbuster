@@ -48,6 +48,13 @@ int main(){
         nline++;
     }
     in_file.close();
+    for(int i=0; i<nline; i++){
+        if(pelicula[i].rent_on.compare(pelicula[i].rent_back)<0 && pelicula[i].rent_to.length()!=0){
+            pelicula[i].estado="Rentado";
+        }else if(pelicula[i].rent_on.compare(pelicula[i].rent_back)>0){
+            pelicula[i].estado="Entrega atrasada";
+        }
+    }
     fstream file_bin ("clientes.bin", fstream::in | fstream::binary);
     if(!file_bin.is_open()){
         cout<<"Archivo no encontrado"<<endl;
@@ -98,17 +105,31 @@ int main(){
                         case 1:
                             for(int i=0; i<nline; i++){
                                 int pos=i;
-                                string aux=pelicula[i].genero; string aux_2=pelicula[i].nombre; int aux_3=pelicula[i].id;
+                                int aux=pelicula[i].id; string aux_2=pelicula[i].nombre; string aux_3=pelicula[i].genero; int aux_4=pelicula[i].duracion; string aux_5=pelicula[i].director; string aux_6=pelicula[i].fecha_de_salida; string aux_7=pelicula[i].rent_to; string aux_8=pelicula[i].rent_on; string aux_9=pelicula[i].estado; string aux_10=pelicula[i].rent_back;
                                 
-                                while(pos>0 && pelicula[pos-1].genero.compare(aux)>0){
-                                    pelicula[pos].genero=pelicula[pos-1].genero;
+                                while(pos>0 && pelicula[pos-1].genero.compare(aux_3)>0){
                                     pelicula[pos].id=pelicula[pos-1].id;
                                     pelicula[pos].nombre=pelicula[pos-1].nombre;
+                                    pelicula[pos].genero=pelicula[pos-1].genero;
+                                    pelicula[pos].duracion=pelicula[pos-1].duracion;
+                                    pelicula[pos].director=pelicula[pos-1].director;
+                                    pelicula[pos].fecha_de_salida=pelicula[pos-1].fecha_de_salida;
+                                    pelicula[pos].rent_to=pelicula[pos-1].rent_to;
+                                    pelicula[pos].rent_on=pelicula[pos-1].rent_on;
+                                    pelicula[pos].estado=pelicula[pos-1].estado;
+                                    pelicula[pos].rent_back=pelicula[pos-1].rent_back;
                                     pos--;
                                 }
-                                pelicula[pos].genero=aux;
+                                pelicula[pos].id=aux;
                                 pelicula[pos].nombre=aux_2;
-                                pelicula[pos].id=aux_3;
+                                pelicula[pos].genero=aux_3;
+                                pelicula[pos].duracion=aux_4;
+                                pelicula[pos].director=aux_5;
+                                pelicula[pos].fecha_de_salida=aux_6;
+                                pelicula[pos].rent_to=aux_7;
+                                pelicula[pos].rent_on=aux_8;
+                                pelicula[pos].estado=aux_9;
+                                pelicula[pos].rent_back=aux_10;
                             }
                             cout<<"Ingrese la cantidad de peliculas a visualizar: "; cin>>consulta_peliculas;
                             system("cls");
@@ -150,17 +171,31 @@ int main(){
                             case 2:
                                 for(int i=0; i<nline; i++){
                                     int pos=i;
-                                    int aux=pelicula[i].duracion; string aux_2=pelicula[i].nombre; int aux_3=pelicula[i].id;
+                                    int aux=pelicula[i].id; string aux_2=pelicula[i].nombre; string aux_3=pelicula[i].genero; int aux_4=pelicula[i].duracion; string aux_5=pelicula[i].director; string aux_6=pelicula[i].fecha_de_salida; string aux_7=pelicula[i].rent_to; string aux_8=pelicula[i].rent_on; string aux_9=pelicula[i].estado; string aux_10=pelicula[i].rent_back;
                                     
-                                    while(pos>0 && pelicula[pos-1].duracion>aux){
-                                        pelicula[pos].duracion=pelicula[pos-1].duracion;
+                                    while(pos>0 && pelicula[pos-1].duracion>aux_4){
                                         pelicula[pos].id=pelicula[pos-1].id;
                                         pelicula[pos].nombre=pelicula[pos-1].nombre;
+                                        pelicula[pos].genero=pelicula[pos-1].genero;
+                                        pelicula[pos].duracion=pelicula[pos-1].duracion;
+                                        pelicula[pos].director=pelicula[pos-1].director;
+                                        pelicula[pos].fecha_de_salida=pelicula[pos-1].fecha_de_salida;
+                                        pelicula[pos].rent_to=pelicula[pos-1].rent_to;
+                                        pelicula[pos].rent_on=pelicula[pos-1].rent_on;
+                                        pelicula[pos].estado=pelicula[pos-1].estado;
+                                        pelicula[pos].rent_back=pelicula[pos-1].rent_back;
                                         pos--;
                                     }
-                                    pelicula[pos].duracion=aux;
+                                    pelicula[pos].id=aux;
                                     pelicula[pos].nombre=aux_2;
-                                    pelicula[pos].id=aux_3;
+                                    pelicula[pos].genero=aux_3;
+                                    pelicula[pos].duracion=aux_4;
+                                    pelicula[pos].director=aux_5;
+                                    pelicula[pos].fecha_de_salida=aux_6;
+                                    pelicula[pos].rent_to=aux_7;
+                                    pelicula[pos].rent_on=aux_8;
+                                    pelicula[pos].estado=aux_9;
+                                    pelicula[pos].rent_back=aux_10;
                                 }
                                 cout<<"Ingrese la cantidad de peliculas a visualizar: "; cin>>consulta_peliculas;
                                 system("cls");
@@ -202,17 +237,30 @@ int main(){
                             case 3:
                                 for(int i=0; i<nline; i++){
                                     int pos=i;
-                                    string aux=pelicula[i].director; string aux_2=pelicula[i].nombre; int aux_3=pelicula[i].id;
-                                    
-                                    while(pos>0 && pelicula[pos-1].director.compare(aux)>0){
-                                        pelicula[pos].director=pelicula[pos-1].director;
+                                    int aux=pelicula[i].id; string aux_2=pelicula[i].nombre; string aux_3=pelicula[i].genero; int aux_4=pelicula[i].duracion; string aux_5=pelicula[i].director; string aux_6=pelicula[i].fecha_de_salida; string aux_7=pelicula[i].rent_to; string aux_8=pelicula[i].rent_on; string aux_9=pelicula[i].estado; string aux_10=pelicula[i].rent_back;
+                                    while(pos>0 && pelicula[pos-1].director.compare(aux_5)>0){
                                         pelicula[pos].id=pelicula[pos-1].id;
                                         pelicula[pos].nombre=pelicula[pos-1].nombre;
+                                        pelicula[pos].genero=pelicula[pos-1].genero;
+                                        pelicula[pos].duracion=pelicula[pos-1].duracion;
+                                        pelicula[pos].director=pelicula[pos-1].director;
+                                        pelicula[pos].fecha_de_salida=pelicula[pos-1].fecha_de_salida;
+                                        pelicula[pos].rent_to=pelicula[pos-1].rent_to;
+                                        pelicula[pos].rent_on=pelicula[pos-1].rent_on;
+                                        pelicula[pos].estado=pelicula[pos-1].estado;
+                                        pelicula[pos].rent_back=pelicula[pos-1].rent_back;
                                         pos--;
                                     }
-                                    pelicula[pos].director=aux;
+                                    pelicula[pos].id=aux;
                                     pelicula[pos].nombre=aux_2;
-                                    pelicula[pos].id=aux_3;
+                                    pelicula[pos].genero=aux_3;
+                                    pelicula[pos].duracion=aux_4;
+                                    pelicula[pos].director=aux_5;
+                                    pelicula[pos].fecha_de_salida=aux_6;
+                                    pelicula[pos].rent_to=aux_7;
+                                    pelicula[pos].rent_on=aux_8;
+                                    pelicula[pos].estado=aux_9;
+                                    pelicula[pos].rent_back=aux_10;
                                 }
                                 cout<<"Ingrese la cantidad de peliculas a visualizar: "; cin>>consulta_peliculas;
                                 system("cls");
@@ -254,17 +302,31 @@ int main(){
                             case 4:
                                 for(int i=0; i<nline; i++){
                                     int pos=i;
-                                    string aux=pelicula[i].fecha_de_salida; string aux_2=pelicula[i].nombre; int aux_3=pelicula[i].id;
+                                    int aux=pelicula[i].id; string aux_2=pelicula[i].nombre; string aux_3=pelicula[i].genero; int aux_4=pelicula[i].duracion; string aux_5=pelicula[i].director; string aux_6=pelicula[i].fecha_de_salida; string aux_7=pelicula[i].rent_to; string aux_8=pelicula[i].rent_on; string aux_9=pelicula[i].estado; string aux_10=pelicula[i].rent_back;
                                     
-                                    while(pos>0 && pelicula[pos-1].fecha_de_salida.compare(aux)>0){
-                                        pelicula[pos].fecha_de_salida=pelicula[pos-1].fecha_de_salida;
+                                    while(pos>0 && pelicula[pos-1].fecha_de_salida.compare(aux_6)>0){
                                         pelicula[pos].id=pelicula[pos-1].id;
                                         pelicula[pos].nombre=pelicula[pos-1].nombre;
+                                        pelicula[pos].genero=pelicula[pos-1].genero;
+                                        pelicula[pos].duracion=pelicula[pos-1].duracion;
+                                        pelicula[pos].director=pelicula[pos-1].director;
+                                        pelicula[pos].fecha_de_salida=pelicula[pos-1].fecha_de_salida;
+                                        pelicula[pos].rent_to=pelicula[pos-1].rent_to;
+                                        pelicula[pos].rent_on=pelicula[pos-1].rent_on;
+                                        pelicula[pos].estado=pelicula[pos-1].estado;
+                                        pelicula[pos].rent_back=pelicula[pos-1].rent_back;
                                         pos--;
                                     }
-                                    pelicula[pos].fecha_de_salida=aux;
+                                    pelicula[pos].id=aux;
                                     pelicula[pos].nombre=aux_2;
-                                    pelicula[pos].id=aux_3;
+                                    pelicula[pos].genero=aux_3;
+                                    pelicula[pos].duracion=aux_4;
+                                    pelicula[pos].director=aux_5;
+                                    pelicula[pos].fecha_de_salida=aux_6;
+                                    pelicula[pos].rent_to=aux_7;
+                                    pelicula[pos].rent_on=aux_8;
+                                    pelicula[pos].estado=aux_9;
+                                    pelicula[pos].rent_back=aux_10;
                                 }
                                 cout<<"Ingrese la cantidad de peliculas a visualizar: "; cin>>consulta_peliculas;
                                 system("cls");
@@ -312,22 +374,30 @@ int main(){
                 }while(flag<1 || flag>4);
                 for(int i=0; i<nline; i++){
                     int pos=i;
-                    int aux=pelicula[i].id; string aux_2=pelicula[i].nombre; int aux_3=pelicula[i].duracion; string aux_4=pelicula[i].genero; string aux_5=pelicula[i].director; string aux_6=pelicula[i].fecha_de_salida;
+                    int aux=pelicula[i].id; string aux_2=pelicula[i].nombre; string aux_3=pelicula[i].genero; int aux_4=pelicula[i].duracion; string aux_5=pelicula[i].director; string aux_6=pelicula[i].fecha_de_salida; string aux_7=pelicula[i].rent_to; string aux_8=pelicula[i].rent_on; string aux_9=pelicula[i].estado; string aux_10=pelicula[i].rent_back;
                     while(pos>0 && pelicula[pos-1].id>aux){
-                        pelicula[pos].duracion=pelicula[pos-1].duracion;
                         pelicula[pos].id=pelicula[pos-1].id;
                         pelicula[pos].nombre=pelicula[pos-1].nombre;
                         pelicula[pos].genero=pelicula[pos-1].genero;
+                        pelicula[pos].duracion=pelicula[pos-1].duracion;
                         pelicula[pos].director=pelicula[pos-1].director;
                         pelicula[pos].fecha_de_salida=pelicula[pos-1].fecha_de_salida;
+                        pelicula[pos].rent_to=pelicula[pos-1].rent_to;
+                        pelicula[pos].rent_on=pelicula[pos-1].rent_on;
+                        pelicula[pos].estado=pelicula[pos-1].estado;
+                        pelicula[pos].rent_back=pelicula[pos-1].rent_back;
                         pos--;
                     }
                     pelicula[pos].id=aux;
                     pelicula[pos].nombre=aux_2;
-                    pelicula[pos].duracion=aux_3;
-                    pelicula[pos].genero=aux_4;
+                    pelicula[pos].genero=aux_3;
+                    pelicula[pos].duracion=aux_4;
                     pelicula[pos].director=aux_5;
                     pelicula[pos].fecha_de_salida=aux_6;
+                    pelicula[pos].rent_to=aux_7;
+                    pelicula[pos].rent_on=aux_8;
+                    pelicula[pos].estado=aux_9;
+                    pelicula[pos].rent_back=aux_10;
                 }
             break;
             case 3:
@@ -379,7 +449,7 @@ int main(){
                     case 2:
                     cout<<"Ingrese la id de la pelicula a verificar su disponibilidad: "; cin>>consulta_peliculas;
                     system("cls");
-                    if(pelicula[consulta_peliculas-1].estado=="Rentado"){
+                    if(pelicula[consulta_peliculas-1].estado=="Rentado" || pelicula[consulta_peliculas-1].estado=="Entrega atrasada"){
                         cout<<"La pelicula "<<pelicula[consulta_peliculas-1].nombre<<" ya se encuentra rentada por "<<pelicula[consulta_peliculas-1].rent_to<<", lo sentimos"<<endl;
                         system("pause");
                         system("cls");
@@ -491,10 +561,22 @@ int main(){
                 }while(flag!=3);
                 break;
             }
+            break;
+            case 6:
+                cout<<"Muchas gracias por su confianza, vuelva pronto!"<<endl;
+                system("pause");
+                system("cls");
+                break;
+            default:
+                cout<<"Ingrese una opcion valida."<<endl;
+                system("pause");
+                system("cls");
         }
     }while(flag!=6);
-    system("cls");
-    cout<<"Muchas gracias por su confianza, vuelva pronto!"<<endl;
-    system("pause");
+    ofstream out_file ("movies.csv", ofstream::out);
+    for(int i=0; i<nline; i++){
+        out_file<<pelicula[i].id<<","<<pelicula[i].nombre<<","<<pelicula[i].genero<<","<<pelicula[i].duracion<<","<<pelicula[i].director<<","<<pelicula[i].fecha_de_salida<<","<<pelicula[i].rent_to<<","<<pelicula[i].rent_on<<","<<pelicula[i].estado<<","<<pelicula[i].rent_back<<endl;
+    }
+    out_file.close();
     return 0;
 }
