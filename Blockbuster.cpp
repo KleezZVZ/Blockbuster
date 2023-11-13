@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <ctime>
+#include <string>
 using namespace std;
 struct Peliculas{
     int id, duracion;
@@ -13,7 +14,7 @@ struct Clientes{
     string nombre;
     int ci;
 };
-int flag=0, consulta_peliculas, search_id[1000], numero_de_clientes=0, search_ci, search_cliente_2=1000;
+int flag=0, consulta_peliculas, search_id[1000], numero_de_clientes=0, search_ci, search_cliente_2=1000, orden;
 string search_cliente;
 int main(){
     string line, word;
@@ -88,6 +89,246 @@ int main(){
             }
             system("pause");
             system("cls");
+            break;
+            case 2:
+                do{
+                    cout<<"Bienvenido a la seccion de busqueda de peliculas de Blockbuster.\nLa finalidad de esta seccion, es poder facilitarle a usted la id de una pelicula que le guste, para luego poder consultarla posteriormente.\nPara lograr este cometido, le ofrecemos varias metodos de filtrar las peliculas y poder buscarlas segun lo que elija, y son los siguientes:\n1)Genero de la pelicula.\n2)Duracion de la pelicula.\n3)Director de la pelicula.\n4)Fecha de lanzamiento de la pelicula.\nElija su opcion: "; cin>>flag;
+                    system("cls");
+                    switch(flag){
+                        case 1:
+                            for(int i=0; i<nline; i++){
+                                int pos=i;
+                                string aux=pelicula[i].genero; string aux_2=pelicula[i].nombre; int aux_3=pelicula[i].id;
+                                
+                                while(pos>0 && pelicula[pos-1].genero.compare(aux)>0){
+                                    pelicula[pos].genero=pelicula[pos-1].genero;
+                                    pelicula[pos].id=pelicula[pos-1].id;
+                                    pelicula[pos].nombre=pelicula[pos-1].nombre;
+                                    pos--;
+                                }
+                                pelicula[pos].genero=aux;
+                                pelicula[pos].nombre=aux_2;
+                                pelicula[pos].id=aux_3;
+                            }
+                            cout<<"Ingrese la cantidad de peliculas a visualizar: "; cin>>consulta_peliculas;
+                            system("cls");
+                            cout<<"Elija el orden a visualizar las peliculas.\n1)Ascendente(A->Z).\n2)Descendente(Z->A)\nElija la opcion: "; cin>>orden;
+                            system("cls");
+                            if(orden==1){
+                                for(int i=0; i<consulta_peliculas; i++){
+                                    cout<<i+1<<"-El genero de la pelicula es: "<<pelicula[i].genero<<endl;
+                                    cout<<i+1<<"-El nombre de la pelicula es: "<<pelicula[i].nombre<<endl;
+                                    cout<<i+1<<"-El id de la pelicula es: "<<pelicula[i].id<<endl;
+                                    if((i+1)%10==0){
+                                        system("pause");
+                                        system("cls");
+                                    }
+                                }
+                                system("pause");
+                                system("cls");
+                            }else if(orden==2){
+                                count=1;
+                                for(int i=nline-1; i>=nline-consulta_peliculas; i--){
+                                    cout<<count<<"-El genero de la pelicula es: "<<pelicula[i].genero<<endl;
+                                    cout<<count<<"-El nombre de la pelicula es: "<<pelicula[i].nombre<<endl;
+                                    cout<<count<<"-El id de la pelicula es: "<<pelicula[i].id<<endl;
+                                    if((count)%10==0){
+                                        system("pause");
+                                        system("cls");
+                                    }
+                                    count++;
+                                }
+                                count=0;
+                                system("pause");
+                                system("cls");
+                            }else{
+                                cout<<"Por favor, ingrese una opcion valida."<<endl;
+                                system("pause");
+                                system("cls");
+                            }
+                            break;
+                            case 2:
+                                for(int i=0; i<nline; i++){
+                                    int pos=i;
+                                    int aux=pelicula[i].duracion; string aux_2=pelicula[i].nombre; int aux_3=pelicula[i].id;
+                                    
+                                    while(pos>0 && pelicula[pos-1].duracion>aux){
+                                        pelicula[pos].duracion=pelicula[pos-1].duracion;
+                                        pelicula[pos].id=pelicula[pos-1].id;
+                                        pelicula[pos].nombre=pelicula[pos-1].nombre;
+                                        pos--;
+                                    }
+                                    pelicula[pos].duracion=aux;
+                                    pelicula[pos].nombre=aux_2;
+                                    pelicula[pos].id=aux_3;
+                                }
+                                cout<<"Ingrese la cantidad de peliculas a visualizar: "; cin>>consulta_peliculas;
+                                system("cls");
+                                cout<<"Elija el orden a visualizar las peliculas.\n1)Ascendente(0->n).\n2)Descendente(n->0)\nElija la opcion: "; cin>>orden;
+                                system("cls");
+                                if(orden==1){
+                                    for(int i=0; i<consulta_peliculas; i++){
+                                        cout<<i+1<<"-La duracion de la pelicula es: "<<pelicula[i].duracion<<endl;
+                                        cout<<i+1<<"-El nombre de la pelicula es: "<<pelicula[i].nombre<<endl;
+                                        cout<<i+1<<"-El id de la pelicula es: "<<pelicula[i].id<<endl;
+                                        if((i+1)%10==0){
+                                            system("pause");
+                                            system("cls");
+                                        }
+                                    }
+                                    system("pause");
+                                    system("cls");
+                                }else if(orden==2){
+                                    count=1;
+                                    for(int i=nline-1; i>=nline-consulta_peliculas; i--){
+                                        cout<<count<<"-La duracion de la pelicula es: "<<pelicula[i].duracion<<endl;
+                                        cout<<count<<"-El nombre de la pelicula es: "<<pelicula[i].nombre<<endl;
+                                        cout<<count<<"-El id de la pelicula es: "<<pelicula[i].id<<endl;
+                                        if((count)%10==0){
+                                            system("pause");
+                                            system("cls");
+                                        }
+                                        count++;
+                                    }
+                                    count=0;
+                                    system("pause");
+                                    system("cls");
+                                }else{
+                                    cout<<"Por favor, ingrese una opcion valida."<<endl;
+                                    system("pause");
+                                    system("cls");
+                                }
+                                break;
+                            case 3:
+                                for(int i=0; i<nline; i++){
+                                    int pos=i;
+                                    string aux=pelicula[i].director; string aux_2=pelicula[i].nombre; int aux_3=pelicula[i].id;
+                                    
+                                    while(pos>0 && pelicula[pos-1].director.compare(aux)>0){
+                                        pelicula[pos].director=pelicula[pos-1].director;
+                                        pelicula[pos].id=pelicula[pos-1].id;
+                                        pelicula[pos].nombre=pelicula[pos-1].nombre;
+                                        pos--;
+                                    }
+                                    pelicula[pos].director=aux;
+                                    pelicula[pos].nombre=aux_2;
+                                    pelicula[pos].id=aux_3;
+                                }
+                                cout<<"Ingrese la cantidad de peliculas a visualizar: "; cin>>consulta_peliculas;
+                                system("cls");
+                                cout<<"Elija el orden a visualizar las peliculas.\n1)Ascendente(A->Z).\n2)Descendente(Z->A)\nElija la opcion: "; cin>>orden;
+                                system("cls");
+                                if(orden==1){
+                                    for(int i=0; i<consulta_peliculas; i++){
+                                        cout<<i+1<<"-El director de la pelicula es: "<<pelicula[i].director<<endl;
+                                        cout<<i+1<<"-El nombre de la pelicula es: "<<pelicula[i].nombre<<endl;
+                                        cout<<i+1<<"-El id de la pelicula es: "<<pelicula[i].id<<endl;
+                                        if((i+1)%10==0){
+                                            system("pause");
+                                            system("cls");
+                                        }
+                                    }
+                                    system("pause");
+                                    system("cls");
+                                }else if(orden==2){
+                                    count=1;
+                                    for(int i=nline-1; i>=nline-consulta_peliculas; i--){
+                                        cout<<count<<"-El director de la pelicula es: "<<pelicula[i].director<<endl;
+                                        cout<<count<<"-El nombre de la pelicula es: "<<pelicula[i].nombre<<endl;
+                                        cout<<count<<"-El id de la pelicula es: "<<pelicula[i].id<<endl;
+                                        if((count)%10==0){
+                                            system("pause");
+                                            system("cls");
+                                        }
+                                        count++;
+                                    }
+                                    count=0;
+                                    system("pause");
+                                    system("cls");
+                                }else{
+                                    cout<<"Por favor, ingrese una opcion valida."<<endl;
+                                    system("pause");
+                                    system("cls");
+                                }
+                                break;
+                            case 4:
+                                for(int i=0; i<nline; i++){
+                                    int pos=i;
+                                    string aux=pelicula[i].fecha_de_salida; string aux_2=pelicula[i].nombre; int aux_3=pelicula[i].id;
+                                    
+                                    while(pos>0 && pelicula[pos-1].fecha_de_salida.compare(aux)>0){
+                                        pelicula[pos].fecha_de_salida=pelicula[pos-1].fecha_de_salida;
+                                        pelicula[pos].id=pelicula[pos-1].id;
+                                        pelicula[pos].nombre=pelicula[pos-1].nombre;
+                                        pos--;
+                                    }
+                                    pelicula[pos].fecha_de_salida=aux;
+                                    pelicula[pos].nombre=aux_2;
+                                    pelicula[pos].id=aux_3;
+                                }
+                                cout<<"Ingrese la cantidad de peliculas a visualizar: "; cin>>consulta_peliculas;
+                                system("cls");
+                                cout<<"Elija el orden a visualizar las peliculas.\n1)Ascendente(0->n).\n2)Descendente(n->0)\nElija la opcion: "; cin>>orden;
+                                system("cls");
+                                if(orden==1){
+                                    for(int i=0; i<consulta_peliculas; i++){
+                                        cout<<i+1<<"-La fecha de lanzamiento de la pelicula es: "<<pelicula[i].fecha_de_salida<<endl;
+                                        cout<<i+1<<"-El nombre de la pelicula es: "<<pelicula[i].nombre<<endl;
+                                        cout<<i+1<<"-El id de la pelicula es: "<<pelicula[i].id<<endl;
+                                        if((i+1)%10==0){
+                                            system("pause");
+                                            system("cls");
+                                        }
+                                    }
+                                    system("pause");
+                                    system("cls");
+                                }else if(orden==2){
+                                    count=1;
+                                    for(int i=nline-1; i>=nline-consulta_peliculas; i--){
+                                        cout<<count<<"-La fecha de lanzamiento de la pelicula es: "<<pelicula[i].fecha_de_salida<<endl;
+                                        cout<<count<<"-El nombre de la pelicula es: "<<pelicula[i].nombre<<endl;
+                                        cout<<count<<"-El id de la pelicula es: "<<pelicula[i].id<<endl;
+                                        if((count)%10==0){
+                                            system("pause");
+                                            system("cls");
+                                        }
+                                        count++;
+                                    }
+                                    count=0;
+                                    system("pause");
+                                    system("cls");
+                                }else{
+                                    cout<<"Por favor, ingrese una opcion valida."<<endl;
+                                    system("pause");
+                                    system("cls");
+                                }
+                                break;
+                            default:
+                                cout<<"No ingreso una opcion valida."<<endl;
+                                system("pause");
+                                system("cls");
+                                break;
+                    }
+                }while(flag<1 || flag>4);
+                for(int i=0; i<nline; i++){
+                    int pos=i;
+                    int aux=pelicula[i].id; string aux_2=pelicula[i].nombre; int aux_3=pelicula[i].duracion; string aux_4=pelicula[i].genero; string aux_5=pelicula[i].director; string aux_6=pelicula[i].fecha_de_salida;
+                    while(pos>0 && pelicula[pos-1].id>aux){
+                        pelicula[pos].duracion=pelicula[pos-1].duracion;
+                        pelicula[pos].id=pelicula[pos-1].id;
+                        pelicula[pos].nombre=pelicula[pos-1].nombre;
+                        pelicula[pos].genero=pelicula[pos-1].genero;
+                        pelicula[pos].director=pelicula[pos-1].director;
+                        pelicula[pos].fecha_de_salida=pelicula[pos-1].fecha_de_salida;
+                        pos--;
+                    }
+                    pelicula[pos].id=aux;
+                    pelicula[pos].nombre=aux_2;
+                    pelicula[pos].duracion=aux_3;
+                    pelicula[pos].genero=aux_4;
+                    pelicula[pos].director=aux_5;
+                    pelicula[pos].fecha_de_salida=aux_6;
+                }
             break;
             case 3:
             do{
