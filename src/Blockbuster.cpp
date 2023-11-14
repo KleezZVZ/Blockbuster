@@ -4,7 +4,7 @@
 #include <string>
 #include <fstream>
 #include <ctime>
-#include <string>
+#include <Windows.h>
 using namespace std;
 struct Peliculas{
     int id, duracion;
@@ -17,11 +17,12 @@ struct Clientes{
 int flag=0, consulta_peliculas, search_id[1000], numero_de_clientes=0, search_ci, search_cliente_2=1000, orden;
 string search_cliente;
 int main(){
+    system("color 4f");
     string line, word;
     int count=0, nline=0;
     Peliculas pelicula[2000];
     Clientes cliente[100];
-    ifstream in_file ("movies.csv", ifstream::in);
+    ifstream in_file ("../data/movies.csv", ifstream::in);
     if(!in_file.is_open()){
         cout<<"Archivo no encontrado"<<endl;
         system("pause");
@@ -55,23 +56,20 @@ int main(){
             pelicula[i].estado="Entrega atrasada";
         }
     }
-    fstream file_bin ("clientes.bin", fstream::in | fstream::binary);
-    if(!file_bin.is_open()){
-        cout<<"Archivo no encontrado"<<endl;
-        system("pause");
-        return 0;
-    }
-    while(getline(file_bin, line)){
-        stringstream str(line);
-        while(getline(str, word, '|')){
-            switch(count){
-                case 0: cliente[numero_de_clientes].ci=stoi(word);
-                case 1: cliente[numero_de_clientes].nombre=word;
+    fstream file_bin ("../data/clientes.bin", fstream::in | fstream::binary);
+    if(file_bin.is_open()){
+        while(getline(file_bin, line)){
+            stringstream str(line);
+            while(getline(str, word, ';')){
+                switch(count){
+                    case 0: cliente[numero_de_clientes].ci=stoi(word);
+                    case 1: cliente[numero_de_clientes].nombre=word;
+                }
+                count++;
             }
-            count++;
+            count=0;
+            numero_de_clientes++;
         }
-        count=0;
-        numero_de_clientes++;
     }
     file_bin.close();
     do{
@@ -487,7 +485,7 @@ int main(){
                 pelicula[nline].fecha_de_salida=new_movie;
                 pelicula[nline].id=nline+1;
                 system("cls");
-                ofstream write_file("movies.csv", ofstream::ios_base::app);
+                ofstream write_file("../data/movies.csv", ofstream::ios_base::app);
                 pelicula[nline].estado="Disponible";
                 write_file<<endl<<pelicula[nline].id<<","<<pelicula[nline].nombre<<","<<pelicula[nline].genero<<","<<pelicula[nline].duracion<<","<<pelicula[nline].director<<","<<pelicula[nline].fecha_de_salida<<","<<pelicula[nline].rent_to<<","<<pelicula[nline].rent_on<<","<<pelicula[nline].estado<<","<<pelicula[nline].rent_back;
                 nline++;
@@ -508,8 +506,8 @@ int main(){
                             cout<<"Ingrese su nombre y apellido: "; getline(cin, cliente[numero_de_clientes].nombre);
                             rewind(stdin);
                             system("cls");
-                            fstream write_bin ("clientes.bin", ios_base::app | fstream::binary);
-                            write_bin<<cliente[numero_de_clientes].ci<<"|"<<cliente[numero_de_clientes].nombre<<endl;
+                            fstream write_bin ("../data/clientes.bin", ios_base::app | fstream::binary);
+                            write_bin<<cliente[numero_de_clientes].ci<<";"<<cliente[numero_de_clientes].nombre<<endl;
                             write_bin.close();
                             cout<<"Su registro ha sido completado con exito!, ya puede rentar peliculas de nuestra franquicia."<<endl;
                             numero_de_clientes++;
@@ -573,7 +571,7 @@ int main(){
                 system("cls");
         }
     }while(flag!=6);
-    ofstream out_file ("movies.csv", ofstream::out);
+    ofstream out_file ("../data/movies.csv", ofstream::out);
     for(int i=0; i<nline; i++){
         out_file<<pelicula[i].id<<","<<pelicula[i].nombre<<","<<pelicula[i].genero<<","<<pelicula[i].duracion<<","<<pelicula[i].director<<","<<pelicula[i].fecha_de_salida<<","<<pelicula[i].rent_to<<","<<pelicula[i].rent_on<<","<<pelicula[i].estado<<","<<pelicula[i].rent_back<<endl;
     }
