@@ -9,6 +9,9 @@
 				"-fdiagnostics-color=always",
 				"-g",
 				"${file}",
+				"${fileDirname}\\controller\\*.cpp",
+				"${fileDirname}\\view\\*.cpp",
+				"${fileDirname}\\model\\*.cpp",
 				"-o",
 				"${workspaceFolder}\\bin\\${fileBasenameNoExtension}.exe"
 			],
