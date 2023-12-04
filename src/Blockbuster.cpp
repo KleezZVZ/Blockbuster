@@ -1,55 +1,13 @@
-#include <iostream>
-#include <sstream>
-#include <stdlib.h>
-#include <string>
-#include <fstream>
-#include <ctime>
 #include <Windows.h>
+#include "view/view.h"
 using namespace std;
-struct Peliculas{
-    int id, duracion;
-    string nombre, genero, director, fecha_de_salida, rent_to, rent_on, estado, rent_back;
-};
-struct Clientes{
-    string nombre;
-    int ci;
-};
-int flag=0, consulta_peliculas, search_id[1000], numero_de_clientes=0, search_ci, search_cliente_2=1000, orden;
-string search_cliente;
+//int flag=0, consulta_peliculas, search_id[1000], numero_de_clientes=0, search_ci, search_cliente_2=1000, orden;
+//string search_cliente;
 int main(){
     system("color 4f");
-    string line, word;
-    int count=0, nline=0;
-    Peliculas pelicula[2000];
-    Clientes cliente[100];
-    ifstream in_file ("../data/movies.csv", ifstream::in);
-    if(!in_file.is_open()){
-        cout<<"Archivo no encontrado"<<endl;
-        system("pause");
-        return 0;
-    }
-    while(getline(in_file, line)){
-        stringstream str(line);
-        while(getline(str, word, ',')){
-            switch(count){
-                case 0: pelicula[nline].id=stoi(word); break;
-                case 1: pelicula[nline].nombre=word; break;
-                case 2: pelicula[nline].genero=word; break;
-                case 3: pelicula[nline].duracion=stoi(word); break;
-                case 4: pelicula[nline].director=word; break;
-                case 5: pelicula[nline].fecha_de_salida=word; break;
-                case 6: pelicula[nline].rent_to=word; break;
-                case 7: pelicula[nline].rent_on=word; break;
-                case 8: pelicula[nline].estado=word; break;
-                case 9: pelicula[nline].rent_back=word; break;
-            }
-            count++;
-        }
-        count=0;
-        nline++;
-    }
-    in_file.close();
-    for(int i=0; i<nline; i++){
+    cargar_estructura_2();
+    system("pause");
+    /*for(int i=0; i<nline; i++){
         if(pelicula[i].rent_on.compare(pelicula[i].rent_back)<0 && pelicula[i].rent_to.length()!=0){
             pelicula[i].estado="Rentado";
         }else if(pelicula[i].rent_on.compare(pelicula[i].rent_back)>0){
@@ -575,6 +533,6 @@ int main(){
     for(int i=0; i<nline; i++){
         out_file<<pelicula[i].id<<","<<pelicula[i].nombre<<","<<pelicula[i].genero<<","<<pelicula[i].duracion<<","<<pelicula[i].director<<","<<pelicula[i].fecha_de_salida<<","<<pelicula[i].rent_to<<","<<pelicula[i].rent_on<<","<<pelicula[i].estado<<","<<pelicula[i].rent_back<<endl;
     }
-    out_file.close();
+    out_file.close();*/
     return 0;
 }
