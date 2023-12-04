@@ -4,9 +4,10 @@
 #include <sstream>
 #include <fstream>
 using namespace std;
+int nline=0, numero_de_clientes=0;
 void cargar_estructura(){
     string line, word;
-    int count=0, nline=0;
+    int count=0;
     ifstream in_file ("../data/movies.csv", ifstream::in);
     if(!in_file.is_open()){
         cout<<"Archivo no encontrado"<<endl;
@@ -33,16 +34,33 @@ void cargar_estructura(){
         nline++;
     }
     in_file.close();
+}
+void cargar_estado_de_renta(){
     for(int i=0; i<nline; i++){
-        cout<<i+1<<"-"<<pelicula[i].id<<endl;
-        cout<<i+1<<"-"<<pelicula[i].nombre<<endl;
-        cout<<i+1<<"-"<<pelicula[i].genero<<endl;
-        cout<<i+1<<"-"<<pelicula[i].duracion<<endl;
-        cout<<i+1<<"-"<<pelicula[i].director<<endl;
-        cout<<i+1<<"-"<<pelicula[i].fecha_de_salida<<endl;
-        cout<<i+1<<"-"<<pelicula[i].rent_to<<endl;
-        cout<<i+1<<"-"<<pelicula[i].rent_on<<endl;
-        cout<<i+1<<"-"<<pelicula[i].estado<<endl;
-        cout<<i+1<<"-"<<pelicula[i].rent_back<<endl;
+        if(pelicula[i].rent_on.compare(pelicula[i].rent_back)<0 && pelicula[i].rent_to.length()!=0){
+            pelicula[i].estado="Rentado";
+        }else if(pelicula[i].rent_on.compare(pelicula[i].rent_back)>0){
+            pelicula[i].estado="Entrega atrasada";
+        }
     }
+}
+void cargar_clientes(){
+    string line, word;
+    int count;
+    fstream file_bin ("../data/clientes.bin", fstream::in | fstream::binary);
+    if(file_bin.is_open()){
+        while(getline(file_bin, line)){
+            stringstream str(line);
+            while(getline(str, word, ';')){
+                switch(count){
+                    case 0: cliente[numero_de_clientes].ci=stoi(word);
+                    case 1: cliente[numero_de_clientes].nombre=word;
+                }
+                count++;
+            }
+            count=0;
+            numero_de_clientes++;
+        }
+    }
+    file_bin.close();
 }

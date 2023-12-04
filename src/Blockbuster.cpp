@@ -6,30 +6,10 @@ using namespace std;
 int main(){
     system("color 4f");
     cargar_estructura_2();
+    cargar_estado_de_renta_2();
+    cargar_clientes_2();
     system("pause");
-    /*for(int i=0; i<nline; i++){
-        if(pelicula[i].rent_on.compare(pelicula[i].rent_back)<0 && pelicula[i].rent_to.length()!=0){
-            pelicula[i].estado="Rentado";
-        }else if(pelicula[i].rent_on.compare(pelicula[i].rent_back)>0){
-            pelicula[i].estado="Entrega atrasada";
-        }
-    }
-    fstream file_bin ("../data/clientes.bin", fstream::in | fstream::binary);
-    if(file_bin.is_open()){
-        while(getline(file_bin, line)){
-            stringstream str(line);
-            while(getline(str, word, ';')){
-                switch(count){
-                    case 0: cliente[numero_de_clientes].ci=stoi(word);
-                    case 1: cliente[numero_de_clientes].nombre=word;
-                }
-                count++;
-            }
-            count=0;
-            numero_de_clientes++;
-        }
-    }
-    file_bin.close();
+    /*
     do{
         cout<<"Bienvenido al programa de rentas de peliculas online de Blockbuster. A continuacion se le dara sus opciones:\n1)Consulta de peliculas.\n2)Buscador de peliculas.\n3)Rentar una pelicula.\n4)Agregar peliculas.\n5)Registrar cliente.\n6)Salir del programa.\nElija su opcion: "; cin>>flag;
         system("cls");
