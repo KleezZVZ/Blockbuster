@@ -4,7 +4,7 @@
 #include <sstream>
 #include <fstream>
 using namespace std;
-int nline=0, numero_de_clientes=0;
+int nline=0, numero_de_clientes=0, *puntero=nullptr;
 void cargar_estructura(){
     string line, word;
     int count=0;
@@ -63,4 +63,21 @@ void cargar_clientes(){
         }
     }
     file_bin.close();
+}
+void crear_arreglo_dinamico(int n){
+    puntero=new int[n];
+}
+void llenar_arreglo_dinamico(int valor, int i){
+    *(puntero+i)=valor;
+}
+void mostrar_peliculas(int n){
+    for(int i=0; i<n; i++){
+        cout<<i+1<<"-Nombre de la pelicula: "<<pelicula[*(puntero+i)-1].nombre<<endl;
+        cout<<i+1<<"-Genero de la pelicula: "<<pelicula[*(puntero+i)-1].genero<<endl;
+        cout<<i+1<<"-Duracion de la pelicula: "<<pelicula[*(puntero+i)-1].duracion<<endl;
+        cout<<i+1<<"-Director de la pelicula: "<<pelicula[*(puntero+i)-1].director<<endl;
+        cout<<i+1<<"-Fecha de salida de la pelicula: "<<pelicula[*(puntero+i)-1].fecha_de_salida<<endl;
+    }
+    delete[] puntero;
+    puntero=nullptr;
 }
