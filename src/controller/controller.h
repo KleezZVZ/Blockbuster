@@ -8,4 +8,6 @@
     void llenar_arreglo_dinamico(int, int );
     void mostrar_peliculas(int );
     void crear_cliente(int, std::string);
+    std::string busqueda_ci(int );
+    int busqueda_cliente(std::string);
 #endif

@@ -18,7 +18,7 @@ void menu_principal(){
             system("cls");
             break;
             case 5:
-            menu_5_1();
+            menu_5();
             system("pause");
             system("cls");
             break;
@@ -39,13 +39,17 @@ void menu_1(){
 }
 void menu_5(){
     int flag;
-    cout<<"Bienvenido a la seccion de registro de clientes, a continuacion se le dara sus opciones:\n1)Registrarse.\n2)Busqueda de cliente.\n3)Volver al menu principal.\nElija su opcion: "; cin>>flag;
+    cout<<"Bienvenido a la seccion de registro de clientes, a continuacion se le dara sus opciones:\n1)Registrarse.\n2)Busqueda de cliente.\nElija su opcion: "; cin>>flag;
     system("cls");
     switch(flag){
         case 1:
-
-
+        menu_5_1();
         break;
+        case 2:
+        menu_5_2();
+        break;
+        default:
+        cout<<"No ingreso una opcion valida"<<endl;
     }
 }
 void menu_5_1(){
@@ -60,5 +64,32 @@ void menu_5_1(){
     crear_cliente(ci, cliente);
     cout<<"Su registro ha sido realizado con exito!";
     system("cls");
-    
+}
+void menu_5_2(){
+    int option, ci, search_ci;
+    string name, cliente;
+    cout<<"Bienvenido a la seccion de busqueda de cliente. Aqui podra verificar si su registro fue exitoso y usted esta registrado en nuestro sistema.\nSeleccione que campo va a buscar, cedula [1] o nombre y apellido [2]:  "; cin>>option;
+    system("cls");
+    if(option==1){
+        cout<<"Ingrese su numero de cedula: "; cin>>ci;
+        system("cls");
+        name=busqueda_ci(ci);
+        if(name=="-1"){
+            cout<<"No se ha encontrado al usuario perteneciente a ese numero de cedula. Compruebe que lo haya ingresado bien, o registrese para poder disfrutar de nuestras peliculas!"<<endl;
+        }else{
+            cout<<"Usuario perteneciente al numero de cedula ingresado: "<<name<<". Usted ha sido encontrado con exito!"<<endl;
+        }
+    }else if(option==2){
+        rewind(stdin);
+        cout<<"Ingrese su nombre y apellido: "; getline(cin, cliente);
+        system("cls");
+        search_ci=busqueda_cliente(cliente);
+        if(search_ci==-1){
+            cout<<"No se ha encontrado la cedula perteneciente al usuario ingresado. Compruebe que lo haya ingresado bien, o registrese para poder disfrutar de nuestras peliculas!"<<endl;
+        }else{
+            cout<<"La cedula perteneciente al usuario ingresado es: "<<search_ci<<". Usted ha sido encontrado con exito!"<<endl;
+        }
+    }else{
+        cout<<"No ingreso una opcion valida"<<endl;
+    }
 }

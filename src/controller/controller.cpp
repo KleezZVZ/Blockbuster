@@ -89,3 +89,19 @@ void crear_cliente(int ci, string nombre){
     write_bin.close();
     numero_de_clientes++;
 }
+string busqueda_ci(int search_ci){
+    for(int i=0; i<numero_de_clientes; i++){
+        if(cliente[i].ci==search_ci){
+            return cliente[i].nombre;
+        }
+    }
+    return "-1";
+}
+int busqueda_cliente(string search_nombre){
+    for(int i=0; i<numero_de_clientes; i++){
+        if(cliente[i].nombre==search_nombre){
+            return cliente[i].ci;
+        }
+    }
+    return -1;
+}
