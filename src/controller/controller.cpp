@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <ctime>
 using namespace std;
 int nline=0, numero_de_clientes=0, *puntero=nullptr;
 void cargar_estructura(){
@@ -104,4 +105,34 @@ int busqueda_cliente(string search_nombre){
         }
     }
     return -1;
+}
+int inicio_sesion(int search_ci, string search_cliente){
+    for(int i=0; i<numero_de_clientes; i++){
+        if(cliente[i].ci==search_ci && cliente[i].nombre==search_cliente){
+            return 1;
+        }
+    }
+    return -1;
+}
+string rentar_pelicula(string cliente, int search_id){
+    time_t ahora= time(0);
+    tm* fecha= localtime(&ahora);
+    char fecha_actual[11];
+    strftime(fecha_actual, sizeof(fecha_actual), "%F", fecha);
+    pelicula[search_id-1].rent_on=fecha_actual;
+    ahora+=14*24*60*60;
+    fecha= localtime(&ahora);
+    char fecha_a_devolver[11];
+    strftime(fecha_a_devolver, sizeof(fecha_a_devolver), "%F", fecha);
+    pelicula[search_id-1].rent_back=fecha_a_devolver;
+    pelicula[search_id-1].estado="Rentado";
+    pelicula[search_id-1].rent_to=cliente;
+    return pelicula[search_id-1].nombre;
+}
+void consulta_peliculas(int search_id){
+    if(pelicula[search_id-1].estado=="Rentado" || pelicula[search_id-1].estado=="Entrega atrasada"){
+        cout<<"La pelicula "<<pelicula[search_id-1].nombre<<" ya se encuentra rentada por "<<pelicula[search_id-1].rent_to<<", lo sentimos"<<endl;
+    }else{
+        cout<<"La pelicula "<<pelicula[search_id-1].nombre<<" se encuentra disponible, vaya a la opcion de rentarla"<<endl;
+    }
 }

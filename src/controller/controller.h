@@ -10,4 +10,7 @@
     void crear_cliente(int, std::string);
     std::string busqueda_ci(int );
     int busqueda_cliente(std::string);
+    int inicio_sesion(int, std::string);
+    std::string rentar_pelicula(std::string, int);
+    void consulta_peliculas(int );
 #endif

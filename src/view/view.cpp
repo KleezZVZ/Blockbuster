@@ -17,6 +17,16 @@ void menu_principal(){
             system("pause");
             system("cls");
             break;
+            case 2:
+            cout<<"Sin implementar"<<endl;
+            system("pause");
+            system("cls");
+            break;
+            case 3:
+            menu_3();
+            system("pause");
+            system("cls");
+            break;
             case 5:
             menu_5();
             system("pause");
@@ -62,8 +72,7 @@ void menu_5_1(){
     system("cls");
     rewind(stdin);
     crear_cliente(ci, cliente);
-    cout<<"Su registro ha sido realizado con exito!";
-    system("cls");
+    cout<<"Su registro ha sido realizado con exito!"<<endl;
 }
 void menu_5_2(){
     int option, ci, search_ci;
@@ -91,5 +100,32 @@ void menu_5_2(){
         }
     }else{
         cout<<"No ingreso una opcion valida"<<endl;
+    }
+}
+void menu_3(){
+    int option, search_ci, verificacion, search_id;
+    string search_cliente, pelicula;
+    cout<<"Bienvenido a la seccion de rentas de Blockbuster, a continuacion se les dara las siguientes opciones:\n1)Rentar una pelicula.\n2)Consultar el estado de una pelicula.\nElija una opcion: "; cin>>option;
+    system("cls");
+    if(option==1){
+        cout<<"Bienvenido al sistema de rentas de Blockbuster. Previo a rentar una pelicula, necesita iniciar sesion.\nIngrese su numero de cedula: "; cin>>search_ci;
+        rewind(stdin);
+        system("cls");
+        cout<<"Ingrese su nombre y apellido: "; getline(cin, search_cliente);
+        rewind(stdin);
+        system("cls");
+        verificacion=inicio_sesion(search_ci, search_cliente);
+        if(verificacion==1){
+            cout<<"Bienvenido/a, por favor ingrese el id de la pelicula a rentar: "; cin>>search_id;
+            system("cls");
+            pelicula=rentar_pelicula(search_cliente, search_id);
+            cout<<"La renta ha sido llevado con exito!, la pelicula que usted rento es: "<<pelicula<<". Tiene 14 dias para devolverla."<<endl;
+        }else{
+            cout<<"Los datos ingresados no coinciden. Por favor, ingrese bien sus datos, o en caso contrario, registrese en nuestro sistema."<<endl;
+        }
+    }else if(option==2){
+        cout<<"Ingrese la id de la pelicula a verificar su disponibilidad: "; cin>>search_id;
+        system("cls");
+        consulta_peliculas(search_id);
     }
 }
