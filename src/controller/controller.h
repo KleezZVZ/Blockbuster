@@ -13,4 +13,6 @@
     int inicio_sesion(int, std::string);
     std::string rentar_pelicula(std::string, int);
     void consulta_peliculas(int );
+    int agregar_pelicula(std::string, std::string, int, std::string, std::string);
+    void subir_informacion();
 #endif

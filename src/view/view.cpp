@@ -27,11 +27,24 @@ void menu_principal(){
             system("pause");
             system("cls");
             break;
+            case 4:
+            menu_4();
+            system("pause");
+            system("cls");
+            break;
             case 5:
             menu_5();
             system("pause");
             system("cls");
             break;
+            case 6:
+            cout<<"Muchas gracias por su confianza, vuelva pronto!"<<endl;
+            subir_informacion();
+            break;
+            default:
+            cout<<"Elija una opcion valida"<<endl;
+            system("pause");
+            system("cls");
         }
     }while(flag!=6);
 }
@@ -128,4 +141,29 @@ void menu_3(){
         system("cls");
         consulta_peliculas(search_id);
     }
+}
+void menu_4(){
+    string nombre, genero, director, fecha_de_lanzamiento;
+    int duracion, cantidad;
+    cout<<"Bienvenido a la seccion de agregar peliculas de Blockbuster.\nPara poder agregar una pelicula le pediremos los siguientes datos:\n1)Nombre de la pelicula.\n2)Genero de la pelicula.\n3)Duracion de la pelicula.\n4)Director de la pelicula.\n5)Fecha de lanzamiento de la pelicula."<<endl;
+    system("pause");
+    system("cls");
+    rewind(stdin);
+    cout<<"Ingrese el nombre de la pelicula: "; getline(cin, nombre);
+    rewind(stdin);
+    system("cls");
+    cout<<"Ingrese el genero de la pelicula: "; getline(cin, genero);
+    rewind(stdin);
+    system("cls");
+    cout<<"Ingrese la duracion de la pelicula: "; cin>>duracion;
+    rewind(stdin);
+    system("cls");
+    cout<<"Ingrese el director de la pelicula: "; getline(cin, director);
+    rewind(stdin);
+    system("cls");
+    cout<<"Ingrese la fecha de lanzamiento de la pelicula (en el formato yy-mm-dd): "; getline(cin, fecha_de_lanzamiento);
+    rewind(stdin);
+    system("cls");
+    cantidad=agregar_pelicula(nombre,genero,duracion,director,fecha_de_lanzamiento);
+    cout<<"Su registro se ha llevado con exito! Usted ha agregado la pelicula numero: "<<cantidad<<endl;
 }

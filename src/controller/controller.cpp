@@ -136,3 +136,24 @@ void consulta_peliculas(int search_id){
         cout<<"La pelicula "<<pelicula[search_id-1].nombre<<" se encuentra disponible, vaya a la opcion de rentarla"<<endl;
     }
 }
+int agregar_pelicula(string nombre, string genero, int duracion, string director, string fecha_de_lanzamiento){
+    pelicula[nline].nombre=nombre;
+    pelicula[nline].genero=genero;
+    pelicula[nline].duracion=duracion;
+    pelicula[nline].director=director;
+    pelicula[nline].fecha_de_salida=fecha_de_lanzamiento;
+    pelicula[nline].id=nline+1;
+    pelicula[nline].estado="Disponible";
+    ofstream write_file("../data/movies.csv", ofstream::ios_base::app);
+    write_file<<endl<<pelicula[nline].id<<","<<pelicula[nline].nombre<<","<<pelicula[nline].genero<<","<<pelicula[nline].duracion<<","<<pelicula[nline].director<<","<<pelicula[nline].fecha_de_salida<<","<<pelicula[nline].rent_to<<","<<pelicula[nline].rent_on<<","<<pelicula[nline].estado<<","<<pelicula[nline].rent_back;
+    nline++;
+    write_file.close();
+    return nline;
+}
+void subir_informacion(){
+    ofstream out_file ("../data/movies.csv", ofstream::out);
+    for(int i=0; i<nline; i++){
+        out_file<<pelicula[i].id<<","<<pelicula[i].nombre<<","<<pelicula[i].genero<<","<<pelicula[i].duracion<<","<<pelicula[i].director<<","<<pelicula[i].fecha_de_salida<<","<<pelicula[i].rent_to<<","<<pelicula[i].rent_on<<","<<pelicula[i].estado<<","<<pelicula[i].rent_back<<endl;
+    }
+    out_file.close();
+}
