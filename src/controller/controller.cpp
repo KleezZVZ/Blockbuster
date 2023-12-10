@@ -81,3 +81,11 @@ void mostrar_peliculas(int n){
     delete[] puntero;
     puntero=nullptr;
 }
+void crear_cliente(int ci, string nombre){
+    cliente[numero_de_clientes].ci=ci;
+    cliente[numero_de_clientes].nombre=nombre;
+    fstream write_bin ("../data/clientes.bin", ios_base::app | fstream::binary);
+    write_bin<<cliente[numero_de_clientes].ci<<";"<<cliente[numero_de_clientes].nombre<<endl;
+    write_bin.close();
+    numero_de_clientes++;
+}

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "view.h"
 #include "../controller/controller.h"
 using namespace std;
@@ -16,6 +17,11 @@ void menu_principal(){
             system("pause");
             system("cls");
             break;
+            case 5:
+            menu_5_1();
+            system("pause");
+            system("cls");
+            break;
         }
     }while(flag!=6);
 }
@@ -30,4 +36,29 @@ void menu_1(){
     }
     system("cls");
     mostrar_peliculas(consulta_peliculas);
+}
+void menu_5(){
+    int flag;
+    cout<<"Bienvenido a la seccion de registro de clientes, a continuacion se le dara sus opciones:\n1)Registrarse.\n2)Busqueda de cliente.\n3)Volver al menu principal.\nElija su opcion: "; cin>>flag;
+    system("cls");
+    switch(flag){
+        case 1:
+
+
+        break;
+    }
+}
+void menu_5_1(){
+    int ci;
+    string cliente;
+    cout<<"Bienvenido a la seccion de registro, los requisitos para poder registrarse son los siguientes: Su nombre y apellido, y su cedula de identidad.\nPor favor, ingrese su cedula: "; cin>>ci;
+    system("cls");
+    rewind(stdin);
+    cout<<"Ingrese su nombre y apellido: "; getline(cin, cliente);
+    system("cls");
+    rewind(stdin);
+    crear_cliente(ci, cliente);
+    cout<<"Su registro ha sido realizado con exito!";
+    system("cls");
+    
 }

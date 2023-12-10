@@ -113,21 +113,6 @@ int main(){
                     cout<<"Bienvenido a la seccion de registro de clientes, a continuacion se le dara sus opciones:\n1)Registrarse.\n2)Busqueda de cliente.\n3)Volver al menu principal.\nElija su opcion: "; cin>>flag;
                     system("cls");
                     switch(flag){
-                        case 1:{
-                            cout<<"Bienvenido a la seccion de registro, los requisitos para poder registrarse son los siguientes: Su nombre y apellido, y su cedula de identidad.\nPor favor, ingrese su cedula: "; cin>>cliente[numero_de_clientes].ci;
-                            rewind(stdin);
-                            system("cls");
-                            cout<<"Ingrese su nombre y apellido: "; getline(cin, cliente[numero_de_clientes].nombre);
-                            rewind(stdin);
-                            system("cls");
-                            fstream write_bin ("../data/clientes.bin", ios_base::app | fstream::binary);
-                            write_bin<<cliente[numero_de_clientes].ci<<";"<<cliente[numero_de_clientes].nombre<<endl;
-                            write_bin.close();
-                            cout<<"Su registro ha sido completado con exito!, ya puede rentar peliculas de nuestra franquicia."<<endl;
-                            numero_de_clientes++;
-                            system("pause");
-                            system("cls");
-                            }break;
                         case 2:
                             cout<<"Bienvenido a la seccion de busqueda de cliente. Aqui podra verificar si su registro fue exitoso y usted esta registrado en nuestro sistema.\nSeleccione que campo va a buscar, cedula [1] o nombre y apellido [2]:  "; cin>>search_ci;
                             system("cls");
