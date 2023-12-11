@@ -38,16 +38,19 @@ void cargar_estructura(){
 }
 void cargar_estado_de_renta(){
     for(int i=0; i<nline; i++){
-        if(pelicula[i].rent_on.compare(pelicula[i].rent_back)<0 && pelicula[i].rent_to.length()!=0){
-            pelicula[i].estado="Rentado";
-        }else if(pelicula[i].rent_on.compare(pelicula[i].rent_back)>0){
+        time_t ahora= time(0);
+        tm* fecha= localtime(&ahora);
+        char fecha_actual[11];
+        string fecha_s=fecha_actual;
+        strftime(fecha_actual, sizeof(fecha_actual), "%F", fecha);
+        if(fecha_s.compare(pelicula[i].rent_back)>0 && pelicula[i].estado=="Rentado"){
             pelicula[i].estado="Entrega atrasada";
         }
     }
 }
 void cargar_clientes(){
     string line, word;
-    int count;
+    int count=0;
     fstream file_bin ("../data/clientes.bin", fstream::in | fstream::binary);
     if(file_bin.is_open()){
         while(getline(file_bin, line)){
@@ -125,6 +128,14 @@ int inicio_sesion(int search_ci, string search_cliente){
     return -1;
 }
 string rentar_pelicula(string cliente, int search_id){
+    if(pelicula[search_id-1].estado=="Rentado"){
+        return "-1";
+    }
+    for(int i=0; i<nline; i++){
+        if(pelicula[i].rent_to==cliente && pelicula[i].estado=="Entrega atrasada"){
+            return "-2";
+        }
+    }
     time_t ahora= time(0);
     tm* fecha= localtime(&ahora);
     char fecha_actual[11];

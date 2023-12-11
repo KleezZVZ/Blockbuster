@@ -181,7 +181,13 @@ void menu_3(){
             cout<<"Bienvenido/a, por favor ingrese el id de la pelicula a rentar: "; cin>>search_id;
             system("cls");
             pelicula=rentar_pelicula(search_cliente, search_id);
-            cout<<"La renta ha sido llevado con exito!, la pelicula que usted rento es: "<<pelicula<<". Tiene 14 dias para devolverla."<<endl;
+            if(pelicula=="-1"){
+                cout<<"Lo sentimos, no pudo rentar esta pelicula, debido a que otro cliente ya la tiene rentada"<<endl;
+            }else if(pelicula=="-2"){
+                cout<<"Usted no puede rentar mas peliculas, porque tiene uno o mas peliculas que ya caduco la fecha de entrega. Hasta que no devuelva las peliculas previamente rentadas, no podra rentar mas."<<endl;
+            }else{
+                cout<<"La renta ha sido llevado con exito!, la pelicula que usted rento es: "<<pelicula<<". Tiene 14 dias para devolverla."<<endl;
+            }
         }else{
             cout<<"Los datos ingresados no coinciden. Por favor, ingrese bien sus datos, o en caso contrario, registrese en nuestro sistema."<<endl;
         }
