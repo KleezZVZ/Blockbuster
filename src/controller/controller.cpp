@@ -56,6 +56,7 @@ void cargar_clientes(){
                 switch(count){
                     case 0: cliente[numero_de_clientes].ci=stoi(word);
                     case 1: cliente[numero_de_clientes].nombre=word;
+                    case 2: cliente[numero_de_clientes].telefono=word;
                 }
                 count++;
             }
@@ -82,17 +83,26 @@ void mostrar_peliculas(int n){
     delete[] puntero;
     puntero=nullptr;
 }
-void crear_cliente(int ci, string nombre){
+void crear_cliente(int ci, string nombre, string telefono){
     cliente[numero_de_clientes].ci=ci;
     cliente[numero_de_clientes].nombre=nombre;
+    cliente[numero_de_clientes].telefono=telefono;
     fstream write_bin ("../data/clientes.bin", ios_base::app | fstream::binary);
-    write_bin<<cliente[numero_de_clientes].ci<<";"<<cliente[numero_de_clientes].nombre<<endl;
+    write_bin<<cliente[numero_de_clientes].ci<<";"<<cliente[numero_de_clientes].nombre<<";"<<cliente[numero_de_clientes].telefono<<endl;
     write_bin.close();
     numero_de_clientes++;
 }
 string busqueda_ci(int search_ci){
     for(int i=0; i<numero_de_clientes; i++){
         if(cliente[i].ci==search_ci){
+            return cliente[i].nombre;
+        }
+    }
+    return "-1";
+}
+string busqueda_tlf(string search_tlf){
+    for(int i=0; i<numero_de_clientes; i++){
+        if(cliente[i].telefono==search_tlf){
             return cliente[i].nombre;
         }
     }
@@ -156,4 +166,13 @@ void subir_informacion(){
         out_file<<pelicula[i].id<<","<<pelicula[i].nombre<<","<<pelicula[i].genero<<","<<pelicula[i].duracion<<","<<pelicula[i].director<<","<<pelicula[i].fecha_de_salida<<","<<pelicula[i].rent_to<<","<<pelicula[i].rent_on<<","<<pelicula[i].estado<<","<<pelicula[i].rent_back<<endl;
     }
     out_file.close();
+}
+void peliculas_por_cliente(string nombre){
+    int contador=1;
+    for(int i=0; i<nline; i++){
+        if(pelicula[i].rent_to==nombre){
+            cout<<contador<<"-"<<pelicula[i].nombre<<endl;
+            contador++;
+        }   
+    }
 }

@@ -9,7 +9,7 @@ void menu_principal(){
      cargar_estado_de_renta();
      cargar_clientes();
     do{
-        cout<<"Bienvenido al programa de rentas de peliculas online de Blockbuster. A continuacion se le dara sus opciones:\n1)Consulta de peliculas.\n2)Buscador de peliculas.\n3)Rentar una pelicula.\n4)Agregar peliculas.\n5)Registrar cliente.\n6)Salir del programa.\nElija su opcion: "; cin>>flag;
+        cout<<"Bienvenido al programa de rentas de peliculas online de Blockbuster. A continuacion se le dara sus opciones:\n1)Consulta de peliculas.\n2)Buscador de peliculas.\n3)Rentar una pelicula.\n4)Agregar peliculas.\n5)Clientes.\n6)Salir del programa.\nElija su opcion: "; cin>>flag;
         system("cls");
         switch(flag){
             case 1:
@@ -62,7 +62,7 @@ void menu_1(){
 }
 void menu_5(){
     int flag;
-    cout<<"Bienvenido a la seccion de registro de clientes, a continuacion se le dara sus opciones:\n1)Registrarse.\n2)Busqueda de cliente.\nElija su opcion: "; cin>>flag;
+    cout<<"Bienvenido a la seccion de registro de clientes, a continuacion se le dara sus opciones:\n1)Registrarse.\n2)Busqueda de cliente.\n3)Ver peliculas rentadas por un mismo cliente.\nElija su opcion: "; cin>>flag;
     system("cls");
     switch(flag){
         case 1:
@@ -71,26 +71,32 @@ void menu_5(){
         case 2:
         menu_5_2();
         break;
+        case 3:
+        menu_5_3();
+        break;
         default:
         cout<<"No ingreso una opcion valida"<<endl;
     }
 }
 void menu_5_1(){
     int ci;
-    string cliente;
+    string cliente, telefono;
     cout<<"Bienvenido a la seccion de registro, los requisitos para poder registrarse son los siguientes: Su nombre y apellido, y su cedula de identidad.\nPor favor, ingrese su cedula: "; cin>>ci;
     system("cls");
     rewind(stdin);
     cout<<"Ingrese su nombre y apellido: "; getline(cin, cliente);
     system("cls");
     rewind(stdin);
-    crear_cliente(ci, cliente);
+    cout<<"Ingrese su numero de telefono: "; getline(cin, telefono);
+    system("cls");
+    rewind(stdin);
+    crear_cliente(ci, cliente, telefono);
     cout<<"Su registro ha sido realizado con exito!"<<endl;
 }
 void menu_5_2(){
     int option, ci, search_ci;
-    string name, cliente;
-    cout<<"Bienvenido a la seccion de busqueda de cliente. Aqui podra verificar si su registro fue exitoso y usted esta registrado en nuestro sistema.\nSeleccione que campo va a buscar, cedula [1] o nombre y apellido [2]:  "; cin>>option;
+    string name, cliente, telefono, search_tlf;
+    cout<<"Bienvenido a la seccion de busqueda de cliente. Aqui podra verificar si su registro fue exitoso y usted esta registrado en nuestro sistema.\nSeleccione que campo va a buscar, cedula [1], nombre y apellido [2] o telefono [3]:  "; cin>>option;
     system("cls");
     if(option==1){
         cout<<"Ingrese su numero de cedula: "; cin>>ci;
@@ -110,6 +116,16 @@ void menu_5_2(){
             cout<<"No se ha encontrado la cedula perteneciente al usuario ingresado. Compruebe que lo haya ingresado bien, o registrese para poder disfrutar de nuestras peliculas!"<<endl;
         }else{
             cout<<"La cedula perteneciente al usuario ingresado es: "<<search_ci<<". Usted ha sido encontrado con exito!"<<endl;
+        }
+    }else if(option==3){
+        rewind(stdin);
+        cout<<"Ingrese su numero de telefono: "; getline(cin, telefono);
+        system("cls");
+        search_tlf=busqueda_tlf(telefono);
+        if(search_tlf=="-1"){
+            cout<<"No se ha encontrado el telefono perteneciente al usuario ingresado. Compruebe que lo haya ingresado bien, o registrese para poder disfrutar de nuestras peliculas!"<<endl;
+        }else{
+            cout<<"El numero de telefono ingresado ha sido encontrado con exito, y le pertenece al cliente: "<<search_tlf<<endl;
         }
     }else{
         cout<<"No ingreso una opcion valida"<<endl;
@@ -166,4 +182,25 @@ void menu_4(){
     system("cls");
     cantidad=agregar_pelicula(nombre,genero,duracion,director,fecha_de_lanzamiento);
     cout<<"Su registro se ha llevado con exito! Usted ha agregado la pelicula numero: "<<cantidad<<endl;
+}
+void menu_5_3(){
+    string name;
+    int ci, verificacion;
+    cout<<"Bienvenido/a, a la seccion donde podra ver todas las peliculas rentadas por un mismo cliente.\nPrimero, debe iniciar sesion, antes de ver las peliculas rentadas."<<endl;
+    rewind(stdin);
+    system("pause");
+    system("cls");
+    cout<<"Ingrese su nombre y apellido: "; getline(cin, name);
+    rewind(stdin);
+    system("cls");
+    cout<<"Ingrese su numero de cedula: "; cin>>ci;
+    rewind(stdin);
+    system("cls");
+    verificacion=inicio_sesion(ci, name);
+    if(verificacion==1){
+        cout<<"A continuacion, todas las peliculas rentadas por usted, "<<name<<endl;
+        peliculas_por_cliente(name);
+    }else{
+        cout<<"Los datos ingresados no coinciden. Por favor, ingrese bien sus datos, o en caso contrario, registrese en nuestro sistema."<<endl;
+    }
 }
