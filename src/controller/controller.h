@@ -17,4 +17,5 @@
     int agregar_pelicula(std::string, std::string, int, std::string, std::string);
     void subir_informacion();
     void peliculas_por_cliente(std::string);
+    void eliminar_cliente(int);
 #endif

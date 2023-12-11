@@ -176,3 +176,19 @@ void peliculas_por_cliente(string nombre){
         }   
     }
 }
+void eliminar_cliente(int ci){
+    for(int i=0; i<numero_de_clientes; i++){
+        if(ci==cliente[i].ci){
+            cliente[i].ci=0;
+            cliente[i].nombre.clear();
+            cliente[i].telefono.clear();
+        }
+    }
+    ofstream out_file("../data/clientes.bin", ofstream::out);
+    for(int i=0; i<numero_de_clientes; i++){
+        if(cliente[i].ci!=0){
+            out_file<<cliente[i].ci<<";"<<cliente[i].nombre<<";"<<cliente[i].telefono<<endl;
+        }
+    }
+    out_file.close();
+}

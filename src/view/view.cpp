@@ -62,7 +62,7 @@ void menu_1(){
 }
 void menu_5(){
     int flag;
-    cout<<"Bienvenido a la seccion de registro de clientes, a continuacion se le dara sus opciones:\n1)Registrarse.\n2)Busqueda de cliente.\n3)Ver peliculas rentadas por un mismo cliente.\nElija su opcion: "; cin>>flag;
+    cout<<"Bienvenido a la seccion orientada a los clientes, a continuacion se le dara sus opciones:\n1)Registrarse.\n2)Busqueda de cliente.\n3)Ver peliculas rentadas por un mismo cliente.\n4)Eliminar registro de cliente.\nElija su opcion: "; cin>>flag;
     system("cls");
     switch(flag){
         case 1:
@@ -73,6 +73,9 @@ void menu_5(){
         break;
         case 3:
         menu_5_3();
+        break;
+        case 4:
+        menu_5_4();
         break;
         default:
         cout<<"No ingreso una opcion valida"<<endl;
@@ -200,6 +203,27 @@ void menu_5_3(){
     if(verificacion==1){
         cout<<"A continuacion, todas las peliculas rentadas por usted, "<<name<<endl;
         peliculas_por_cliente(name);
+    }else{
+        cout<<"Los datos ingresados no coinciden. Por favor, ingrese bien sus datos, o en caso contrario, registrese en nuestro sistema."<<endl;
+    }
+}
+void menu_5_4(){
+    string name;
+    int ci, verificacion;
+    cout<<"Lamentamos mucho que quiera eliminar su registro como cliente de Blockbuster, para eliminar su informacion de nuestro sistema, primero debe iniciar sesion."<<endl;
+    rewind(stdin);
+    system("pause");
+    system("cls");
+    cout<<"Ingrese su nombre y apellido: "; getline(cin, name);
+    rewind(stdin);
+    system("cls");
+    cout<<"Ingrese su numero de cedula: "; cin>>ci;
+    rewind(stdin);
+    system("cls");
+    verificacion=inicio_sesion(ci, name);
+    if(verificacion==1){
+        eliminar_cliente(ci);
+        cout<<"Se ha eliminado su registro exitosamente."<<endl;
     }else{
         cout<<"Los datos ingresados no coinciden. Por favor, ingrese bien sus datos, o en caso contrario, registrese en nuestro sistema."<<endl;
     }
