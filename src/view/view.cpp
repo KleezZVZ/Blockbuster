@@ -9,7 +9,7 @@ void menu_principal(){
      cargar_estado_de_renta();
      cargar_clientes();
     do{
-        cout<<"Bienvenido al programa de rentas de peliculas online de Blockbuster. A continuacion se le dara sus opciones:\n1)Consulta de peliculas.\n2)Buscador de peliculas.\n3)Rentar una pelicula.\n4)Agregar peliculas.\n5)Clientes.\n6)Salir del programa.\nElija su opcion: "; cin>>flag;
+        cout<<"Bienvenido al programa de rentas de peliculas online de Blockbuster. A continuacion se le dara sus opciones:\n1)Consulta de peliculas.\n2)Buscador de peliculas.\n3)Rentar una pelicula.\n4)Agregar o eliminar peliculas.\n5)Clientes.\n6)Salir del programa.\nElija su opcion: "; cin>>flag;
         system("cls");
         switch(flag){
             case 1:
@@ -198,6 +198,21 @@ void menu_3(){
     }
 }
 void menu_4(){
+    int option;
+    cout<<"A continuacion, se le dira sus opciones:\n1)Agregar peliculas.\n2)Eliminar peliculas.\nElija una opcion: "; cin>>option;
+    system("cls");
+    switch(option){
+        case 1:
+        menu_4_1();
+        break;
+        case 2:
+        menu_4_2();
+        break;
+        default:
+        cout<<"No ingreso una opcion valida."<<endl;
+    }
+}
+void menu_4_1(){
     string nombre, genero, director, fecha_de_lanzamiento;
     int duracion, cantidad;
     cout<<"Bienvenido a la seccion de agregar peliculas de Blockbuster.\nPara poder agregar una pelicula le pediremos los siguientes datos:\n1)Nombre de la pelicula.\n2)Genero de la pelicula.\n3)Duracion de la pelicula.\n4)Director de la pelicula.\n5)Fecha de lanzamiento de la pelicula."<<endl;
@@ -221,6 +236,33 @@ void menu_4(){
     system("cls");
     cantidad=agregar_pelicula(nombre,genero,duracion,director,fecha_de_lanzamiento);
     cout<<"Su registro se ha llevado con exito! Usted ha agregado la pelicula numero: "<<cantidad<<endl;
+}
+void menu_4_2(){
+    string name;
+    int ci, verificacion, search_id, contador;
+    cout<<"Bienvenido/a, a la seccion de eliminar peliculas de Blockbuster. Primero debemos confirmar que usted es un cliente registrado en nuestro sistema, por favor, inicie sesion."<<endl;
+    rewind(stdin);
+    system("pause");
+    system("cls");
+    cout<<"Ingrese su nombre y apellido: "; getline(cin, name);
+    rewind(stdin);
+    system("cls");
+    cout<<"Ingrese su numero de cedula: "; cin>>ci;
+    rewind(stdin);
+    system("cls");
+    verificacion=inicio_sesion(ci, name);
+    if(verificacion==1){
+        cout<<"Ingrese el id de la pelicula a eliminar: "; cin>>search_id;
+        system("cls");
+        contador=eliminar_pelicula(search_id);
+        if(contador==-1){
+            cout<<"La pelicula no se puede eliminar, porque actualmente se encuentra rentada."<<endl;
+        }else{
+            cout<<"La pelicula ha sido eliminada con exito."<<endl;
+        }
+    }else{
+        cout<<"Los datos ingresados no coinciden. Por favor, ingrese bien sus datos, o en caso contrario, registrese en nuestro sistema."<<endl;
+    }
 }
 void menu_5_3(){
     string name;

@@ -20,4 +20,5 @@
     void eliminar_cliente(int);
     void mostrar_peliculas_rentadas();
     void mostrar_peliculas_no_rentadas();
+    int eliminar_pelicula(int );
 #endif

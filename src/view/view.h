@@ -7,6 +7,8 @@
     void menu_1_3();
     void menu_3();
     void menu_4();
+    void menu_4_1();
+    void menu_4_2();
     void menu_5();
     void menu_5_1();
     void menu_5_2();
