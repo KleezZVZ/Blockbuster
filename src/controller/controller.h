@@ -18,4 +18,6 @@
     void subir_informacion();
     void peliculas_por_cliente(std::string);
     void eliminar_cliente(int);
+    void mostrar_peliculas_rentadas();
+    void mostrar_peliculas_no_rentadas();
 #endif

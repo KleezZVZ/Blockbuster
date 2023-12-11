@@ -192,3 +192,17 @@ void eliminar_cliente(int ci){
     }
     out_file.close();
 }
+void mostrar_peliculas_rentadas(){
+    for(int i=0; i<nline; i++){
+        if(pelicula[i].estado!="Disponible"){
+            cout<<pelicula[i].id<<"-"<<pelicula[i].nombre<<endl;
+        }
+    }
+}
+void mostrar_peliculas_no_rentadas(){
+    for(int i=0; i<nline; i++){
+        if(pelicula[i].estado=="Disponible"){
+            cout<<pelicula[i].id<<"-"<<pelicula[i].nombre<<endl;
+        }
+    }
+}
